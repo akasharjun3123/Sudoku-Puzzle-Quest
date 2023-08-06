@@ -1,0 +1,288 @@
+body {
+    text-align: center;
+    font-family: 'DM Sans', sans-serif;
+}
+.game-mode{
+    height: 350px;
+    width: 400px;
+    background-color:#FFFFFF;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+}
+.throw-model{
+    top: -50%;
+}
+.game-mode p{
+    font-size: 28px;
+    font-weight: bold;
+}
+.btn{
+    font-size: 18px;
+    font-weight: 600;
+    color: #FFFFFF;
+    cursor: pointer;
+    border: 0;
+    border-radius: 8px;
+    height: 50px;
+    width: 200px;
+    margin: 8px auto;
+    background-color: #107be5;
+    
+}
+.btn:hover{
+    background-color: #006ad3;
+    
+}
+
+.bar{
+    display: flex;
+}
+.difficulty-bar{
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0px 10px 0px auto;
+    width: 450px;
+    height: 40px;
+    background-color:white;
+    display: flex;
+    align-items: center;
+}
+.mistakes-bar{
+    display: flex;
+    align-items: center;
+    margin: 0px auto 0px 10px;
+    height: 40px;
+    width: 280px;
+}
+.mistakes-counter{
+    margin-left:10px;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgb(0, 0, 0);
+}
+.diff{
+    
+    margin: 0px 5px 0px 0px;
+    color: #94A3B7;
+}
+.level{
+    padding: 0px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 32px;
+    border-radius: 5px;
+    color: #6e7C8C;
+    margin: 0px 0px 0px -4px;
+}
+.level.p{
+    
+    margin: 0px;
+}
+.level:hover{
+    cursor: default;
+}
+.active-lev{
+    color: #006ad3;
+}
+
+
+.sudoku-main-grid{
+    height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.secondary-sudoku-grid{
+    height: 450px;
+    width: 280px;
+    margin: 40px auto 40px 10px;
+}
+
+.first-sub-grid{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px auto 10px auto;
+    height: 80px;
+    
+}
+.first-sub-grid p{
+    cursor: default;
+    margin-top: 5px;
+    color: #107be5;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.first-sub-grid *{
+    height: 70px;
+    width: 60px;
+    margin: auto 8px auto 2px;
+}
+
+.sty{
+    height: 60px;
+    width: 60px;
+    background-image: url('Media/icons8-undo-alt-40.png');
+    background-position: center;
+    background-color: #EAEEF4;
+    border-radius: 30px;
+    background-repeat: no-repeat;
+}
+
+.sty:hover{
+    cursor: pointer;
+    background-color: #e3eaf6;
+}
+
+.second-sub-grid{
+    margin: 10px auto 0px auto;
+    height: 280px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: repeat(3,90px);
+    grid-template-rows: repeat(3,90px);
+    gap: 5px;
+}
+.num-pad{ 
+    color: #107be5;
+    font-size: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #EAEEF4;
+    height: 90px;
+    width: 90px;
+    text-align: center;
+    border-radius: 6px;
+}
+.num-pad:hover{
+    cursor: pointer;
+    background-color: #e3eaf6;
+}
+.third-sub-grid{
+    font-weight: 500;
+    margin: 15px auto 5px auto;
+    height: 60px;
+    background-color: #107be5;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 20px;
+}
+
+.third-sub-grid:hover{
+    cursor: pointer;
+    background-color:#006ad3 ;
+}
+
+
+.sudoku-grid {
+    margin: 25px 10px 40px auto;
+    display: flex;
+    flex-wrap: wrap;
+    width: 450px;
+    height: 450px;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.sudoku-cell {
+    border: solid 1px #d5dbe7;
+    color: #344861;
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    width: 48px;
+    background-color: #f3f6f6;
+    font-size: 34px; 
+}
+
+
+.sudoku-cell:nth-child(3n){
+    border-right: solid 2px #344861;
+}
+
+.sudoku-cell:nth-child(9n+1){
+    border-left: solid 2px #344861;
+}
+
+.sudoku-cell:nth-child(n+0):nth-child(-n+9){
+    border-top: solid 2px #344861;
+}
+
+.sudoku-cell:nth-child(n+19):nth-child(-n+27){
+    border-bottom: solid 2px #344861;
+}
+
+.sudoku-cell:nth-child(n+46):nth-child(-n+54){
+    border-bottom: solid 2px #344861;
+}
+.sudoku-cell:nth-child(n+73):nth-child(-n+81){
+    border-bottom: solid 2px #344861;
+}
+
+
+
+.rcg{
+    background-color: #e2ebf3;
+}
+.same-num-high{
+    background-color: #c3d7ea;
+}
+.sudoku-cell:focus{
+    outline: none!important;
+    
+}
+
+.focused-sudoku-cell{
+    background-color: #c3d7ea;
+}
+
+
+
+.fixed-cell-color{
+    color: #107be5;
+}
+
+.wrong-input{
+    color: #e55c6c;
+}
+
+
+
+
+.rcg-error{
+    background-color: #f7cfd6;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

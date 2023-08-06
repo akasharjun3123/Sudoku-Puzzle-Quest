@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,800&family=Hind:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <title>Play Free Sudoku onine - solve web sudoku puzzles</title>
+</head>
+<body>
+    <h1>Akash'Sudoku.com</h1>
+    <div class="bar">
+        <div class="difficulty-bar">
+            <div class="diff"><p>Difficulty : </p></div>
+            <div id="Easy" class=" Easy-butt level"><p>Easy</p></div>
+            <div id="Medium" class="Medium-butt level"><p>Medium</p></div>
+            <div id="Hard" class="Hard-butt level"><p>Hard</p></div>
+        </div>
+        <div class="mistakes-bar">
+            <div class="mistakes-counter">
+                Mistakes: 0/5
+            </div>
+        </div>
+    </div>
+    <div class="sudoku-main-grid">
+        <div class="sudoku-grid"> 
+        </div>
+
+        <div class="secondary-sudoku-grid">
+            <div class="first-sub-grid">
+                <div class="erase">
+                    <div class="erase-cell sty" style="background-image: url('Media/Icon-Erase.png');"></div><p>Erase</p>
+                </div>
+                <div class="undo">
+                    <div class="undo-cell sty" style="background-image: url('Media/Icon-Undo.png');"></div><p>*Undo</p>
+                </div>
+                <div class="notes">
+                    <div class="notes-cell sty" style="background-image: url('Media/Icon-Notes.png');"></div><p>ClearH</p>
+                </div>
+                <div class="hint">
+                    <div class="hint-cell sty" style="background-image: url('Media/Icon-Hint.png');"></div><p>*Hint</p>
+                </div>
+            </div>
+            <div class="second-sub-grid">
+                <div class="num-pad">1</div>
+                <div class="num-pad">2</div>
+                <div class="num-pad">3</div>
+                <div class="num-pad">4</div>
+                <div class="num-pad">5</div>
+                <div class="num-pad">6</div>
+                <div class="num-pad">7</div>
+                <div class="num-pad">8</div>
+                <div class="num-pad">9</div>
+            </div>
+            <div class="third-sub-grid">New Game</div>
+        </div>
+    </div>
+
+    <div class="game-mode">
+        <p>Select Game Mode</p>
+        <button id="Easy-mode" class="btn">Easy</button>
+        <button id="Medium-mode" class="btn">Medium</button>
+        <button id="Hard-mode" class="btn">Hard</button>
+    </div>
+    
+<script src="index.js"></script>
+</body>
+</html>
