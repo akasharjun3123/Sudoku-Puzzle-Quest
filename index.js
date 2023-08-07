@@ -20,7 +20,7 @@ dbutns.forEach(button =>{
 
 
 function Ready(x){
-    fetch('https://raw.githubusercontent.com/akasharjun3123/Sudoku_Puzzles/main/akash.json').then(function(response){
+    fetch('https://raw.githubusercontent.com/akasharjun3123/Sudoku-Puzzle-Quest/main/akash.json').then(function(response){
     return response.json();
 }).then(function(data){
     const puzzles = data;
