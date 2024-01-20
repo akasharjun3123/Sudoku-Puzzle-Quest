@@ -10,7 +10,7 @@
     <title>Play Free Sudoku onine - solve web sudoku puzzles</title>
 </head>
 <body>
-    <h1>Akash'Sudoku.com</h1>
+    <h1 class="heading">Sudoku.com</h1>
     <div class="bar">
         <div class="difficulty-bar">
             <div class="diff"><p>Difficulty : </p></div>
@@ -33,14 +33,14 @@
                 <div class="erase">
                     <div class="erase-cell sty" style="background-image: url('Media/Icon-Erase.png');"></div><p>Erase</p>
                 </div>
-                <div class="undo">
-                    <div class="undo-cell sty" style="background-image: url('Media/Icon-Undo.png');"></div><p>*Undo</p>
-                </div>
                 <div class="notes">
-                    <div class="notes-cell sty" style="background-image: url('Media/Icon-Notes.png');"></div><p>ClearH</p>
+                    <div class="clear-cell sty" style="background-image: url('Media/Icon-Notes.png');"></div><p>Clear</p>
                 </div>
-                <div class="hint">
-                    <div class="hint-cell sty" style="background-image: url('Media/Icon-Hint.png');"></div><p>*Hint</p>
+                <div class="undo">
+                    <div class="backT-cell sty" style="background-image: url('Media/Icon-Undo.png');"></div><p>BackTra</p>
+                </div>
+                <div class="solve">
+                    <div class="solve-cell sty" style="background-image: url('Media/Icon-Hint.png');"></div><p>Solve</p>
                 </div>
             </div>
             <div class="second-sub-grid">
@@ -64,11 +64,8 @@
         <button id="Medium-mode" class="btn">Medium</button>
         <button id="Hard-mode" class="btn">Hard</button>
     </div>
-
-    <div class="unsupported-message">
-        <p>Sorry, this website is not supported on your current device. Please view it on a larger screen.</p>
-      </div>
     
-<script src="index.js"></script>
+    
+<script src="function.js"></script>
 </body>
 </html>
