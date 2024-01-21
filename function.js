@@ -124,7 +124,7 @@ function sudokuSolver(sudokuCells, unsolvedSudoku, row, col) {
             highlighitingCells(row,col);
             sameNumberHighlighting(i);
             cell.textContent = unsolvedSudoku[row][col];
-            await delay(15);
+            await delay(100);
             if (await sudokuSolver(sudokuCells, unsolvedSudoku, row, col + 1)) {
               resolve(true);
               return;
@@ -133,7 +133,7 @@ function sudokuSolver(sudokuCells, unsolvedSudoku, row, col) {
             removeSameNumHigh()
             cell.textContent = "";
             highlighitingCells(row,col);
-            await delay(1);
+            await delay(10);
           }
         }
       } else {
