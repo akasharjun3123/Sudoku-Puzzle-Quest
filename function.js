@@ -97,7 +97,8 @@ function getPuzzlesFromJSON(diffLevel){
 
 function manageBacktrack(unsolvedSudoku){
     const copiedArray = unsolvedSudoku.map(row => [...row]);
-    sudokuSolver(sudokuCells, copiedArray, 0,0,);
+    let s = prompt('Enter the speed in ms: ');
+    sudokuSolver(sudokuCells, copiedArray, s, 0,0,);
     const emptyCells = document.querySelectorAll(".empty-cell");
         emptyCells.forEach(cell=>{
             cell.classList.add("fixed-cell-color")
@@ -106,7 +107,7 @@ function manageBacktrack(unsolvedSudoku){
 }
 
 
-function sudokuSolver(sudokuCells, unsolvedSudoku, row, col) {
+function sudokuSolver(sudokuCells, unsolvedSudoku, s, row, col) {
     return new Promise(async (resolve, reject) => {
       if (col == 9) {
         row++;
@@ -124,8 +125,8 @@ function sudokuSolver(sudokuCells, unsolvedSudoku, row, col) {
             highlighitingCells(row,col);
             sameNumberHighlighting(i);
             cell.textContent = unsolvedSudoku[row][col];
-            await delay(100);
-            if (await sudokuSolver(sudokuCells, unsolvedSudoku, row, col + 1)) {
+            if(s!= 0) await delay(s/2);
+            if (await sudokuSolver(sudokuCells, unsolvedSudoku, s, row, col + 1)) {
               resolve(true);
               return;
             }
@@ -133,11 +134,11 @@ function sudokuSolver(sudokuCells, unsolvedSudoku, row, col) {
             removeSameNumHigh()
             cell.textContent = "";
             highlighitingCells(row,col);
-            await delay(10);
+            if(s!= 0) await delay(s/2);
           }
         }
       } else {
-        if (await sudokuSolver(sudokuCells, unsolvedSudoku, row, col + 1)) {
+        if (await sudokuSolver(sudokuCells, unsolvedSudoku, s, row, col + 1)) {
           resolve(true);
           return;
         }
