@@ -36,7 +36,7 @@ function mainFunction(unsolvedSudoku, solvedSudoku){
             const pressedKeyVal = parseInt(event.key)
             let rowNum = getRowColNumber(currCell.id).row
             let colNum = getRowColNumber(currCell.id).col
-            fillPressedKey(solvedSudoku, currCell, pressedKeyVal, rowNum, colNum)
+            fillPressedKey(unsolvedSudoku, solvedSudoku, currCell, pressedKeyVal, rowNum, colNum)
         })
     })
 
@@ -45,7 +45,7 @@ function mainFunction(unsolvedSudoku, solvedSudoku){
             const currCell = document.querySelector(".focused-sudoku-cell")
             let rowNum = getRowColNumber(currCell.id).row
             let colNum = getRowColNumber(currCell.id).col
-            fillPressedKey(solvedSudoku, currCell, key.textContent, rowNum, colNum)
+            fillPressedKey(unsolvedSudoku, solvedSudoku, currCell, key.textContent, rowNum, colNum)
         })
 
     })
@@ -98,7 +98,13 @@ function getPuzzlesFromJSON(diffLevel){
 function manageBacktrack(unsolvedSudoku){
     const copiedArray = unsolvedSudoku.map(row => [...row]);
     let s = prompt('Enter the speed in ms: ');
-    sudokuSolver(sudokuCells, copiedArray, s, 0,0,);
+    let countObj = { 
+        count: 0,
+        backTrackCount :0
+     };
+    sudokuSolver(sudokuCells, copiedArray, s, 0, 0, countObj).then(() => {
+        console.log("Number of times function being called: " + countObj.count);  
+    });
     const emptyCells = document.querySelectorAll(".empty-cell");
         emptyCells.forEach(cell=>{
             cell.classList.add("fixed-cell-color")
@@ -107,7 +113,7 @@ function manageBacktrack(unsolvedSudoku){
 }
 
 
-function sudokuSolver(sudokuCells, unsolvedSudoku, s, row, col) {
+function sudokuSolver(sudokuCells, unsolvedSudoku, s, row, col, countObj) {
     return new Promise(async (resolve, reject) => {
       if (col == 9) {
         row++;
@@ -126,10 +132,12 @@ function sudokuSolver(sudokuCells, unsolvedSudoku, s, row, col) {
             sameNumberHighlighting(i);
             cell.textContent = unsolvedSudoku[row][col];
             if(s!= 0) await delay(s/2);
-            if (await sudokuSolver(sudokuCells, unsolvedSudoku, s, row, col + 1)) {
+            countObj.count += 1;
+            if (await sudokuSolver(sudokuCells, unsolvedSudoku, s, row, col + 1, countObj)) {
               resolve(true);
               return;
             }
+            countObj.count += 1;
             unsolvedSudoku[row][col] = 0;
             removeSameNumHigh()
             cell.textContent = "";
@@ -138,7 +146,7 @@ function sudokuSolver(sudokuCells, unsolvedSudoku, s, row, col) {
           }
         }
       } else {
-        if (await sudokuSolver(sudokuCells, unsolvedSudoku, s, row, col + 1)) {
+        if (await sudokuSolver(sudokuCells, unsolvedSudoku, s, row, col + 1, countObj)) {
           resolve(true);
           return;
         }
@@ -189,7 +197,7 @@ function fillUnsolvedPuzzleData(unsolvedSudoku){
     }
 }
 
-function fillPressedKey(solvedSudoku, currCell, pressedKeyVal, rowNum, colNum){
+function fillPressedKey(unsolvedSudoku, solvedSudoku, currCell, pressedKeyVal, rowNum, colNum){
     if(currCell.classList.contains("wrong-input")) currCell.classList.remove("wrong-input")
     if(!currCell.classList.contains("filled-cell") && !currCell.classList.contains("fixed-cell")){
         if(!isNaN(pressedKeyVal)){
@@ -202,6 +210,7 @@ function fillPressedKey(solvedSudoku, currCell, pressedKeyVal, rowNum, colNum){
                     location.reload();
                 }
             }else{
+                unsolvedSudoku[rowNum][colNum] = pressedKeyVal;
                 currCell.classList.add("fixed-cell-color", "filled-cell")
                 currCell.classList.remove("empty-cell");
                 sameNumberHighlighting(pressedKeyVal)
