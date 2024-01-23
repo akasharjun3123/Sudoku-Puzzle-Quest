@@ -6,7 +6,8 @@ const numPad = document.querySelectorAll(".num-pad")                // NUMPAD
 const counter = document.querySelector(".mistakes-counter");        // MISTAKES COUNTER
 const eraseButton = document.querySelector(".erase-cell");          // ERASE BUTTON
 const clearButton = document.querySelector(".clear-cell");          // CLEAR BUTTON
-const backT = document.querySelector(".backT-cell");                // Backtracking Button
+const reset = document.querySelector(".reset-cell");                // RESET PUZZLE
+const solve = document.querySelector(".solve-cell");                // BACKTRACK SOLVING 
 const newGame = document.querySelector(".third-sub-grid");          // NEW GAME BUTTON
                       
 
@@ -18,8 +19,7 @@ const sudokuCells = document.querySelectorAll(".sudoku-cell")
 
 
 //Primary Event Handling:
-function mainFunction(unsolvedSudoku, solvedSudoku){
-
+function mainFunction(unsolvedSudoku, originalUnsolvedSudoku, solvedSudoku){
     fillUnsolvedPuzzleData(unsolvedSudoku)
     highlighitingCells(0,0)
     sudokuCells.forEach(currCell=>{
@@ -52,7 +52,8 @@ function mainFunction(unsolvedSudoku, solvedSudoku){
 
     eraseButton.addEventListener("click", manageBackSpace)
     clearButton.addEventListener("click",removeHighlighting)
-    backT.addEventListener("click", () => manageBacktrack(unsolvedSudoku, solvedSudoku))
+    reset.addEventListener("click", ()=> resetPuzzle(originalUnsolvedSudoku, unsolvedSudoku))
+    solve.addEventListener("click", () => manageBacktrack(unsolvedSudoku, solvedSudoku))
     newGame.addEventListener("click", () => location.reload())  
    
 }
@@ -78,12 +79,13 @@ function getPuzzlesFromJSON(diffLevel){
     let randomIndex = getIndex(currLevelData)
     const unsolvedSudoku = currLevelData[randomIndex].unsolved
     const solvedSudoku = currLevelData[randomIndex].solved
+    const copyArray = unsolvedSudoku.map(row => [...row])
     console.log("This current puzzle data is of "+diffLevel+" Level with the index of "+randomIndex)
     console.log("Unsolved Sudoku: ")
     console.log(unsolvedSudoku)
     console.log("Solved Sudoku: ")
     console.log(solvedSudoku)
-    mainFunction(unsolvedSudoku, solvedSudoku)
+    mainFunction(copyArray, unsolvedSudoku, solvedSudoku)
 
     
 }).catch(function(error){
@@ -102,7 +104,13 @@ function manageBacktrack(unsolvedSudoku){
         count: 0,
         backTrackCount :0
      };
+    const loader = document.getElementById("loader");
+
+    loader.classList.add("preloader");
+    loader.classList.remove("preloader.hide");
     sudokuSolver(sudokuCells, copiedArray, s, 0, 0, countObj).then(() => {
+        loader.classList.remove("preloader");
+        loader.classList.add("preloader.hide");
         console.log("Number of times function being called: " + countObj.count);  
     });
     const emptyCells = document.querySelectorAll(".empty-cell");
@@ -128,21 +136,26 @@ function sudokuSolver(sudokuCells, unsolvedSudoku, s, row, col, countObj) {
         for (let i = 1; i <= 9; i++) {
           if (isSafe(unsolvedSudoku, row, col, i)) {
             unsolvedSudoku[row][col] = i;
-            highlighitingCells(row,col);
-            sameNumberHighlighting(i);
             cell.textContent = unsolvedSudoku[row][col];
-            if(s!= 0) await delay(s/2);
+            if(s != 0){
+                await delay(s);
+                highlighitingCells(row,col);
+                sameNumberHighlighting(i);
+            }
             countObj.count += 1;
-            if (await sudokuSolver(sudokuCells, unsolvedSudoku, s, row, col + 1, countObj)) {
+            if (await sudokuSolver(sudokuCells, unsolvedSudoku, s, row, col + 1, countObj)){
               resolve(true);
               return;
             }
-            countObj.count += 1;
-            unsolvedSudoku[row][col] = 0;
-            removeSameNumHigh()
             cell.textContent = "";
-            highlighitingCells(row,col);
-            if(s!= 0) await delay(s/2);
+            unsolvedSudoku[row][col] = 0;
+            countObj.count += 1;
+            
+            if(s!= 0){
+                await delay(s/2);
+                removeSameNumHigh()
+                highlighitingCells(row,col);
+            }
           }
         }
       } else {
@@ -217,6 +230,32 @@ function fillPressedKey(unsolvedSudoku, solvedSudoku, currCell, pressedKeyVal, r
             }
         }
     }
+}
+
+function resetPuzzle(originalUnsolvedSudoku, unsolvedSudoku){
+    numOfWrongInputs = 0;
+    counter.innerHTML="Mistakes: "+numOfWrongInputs+"/5";
+    removeSameNumHigh()
+    sudokuCells.forEach(cell =>{
+        if(cell.classList.contains("filled-cell")) cell.classList.remove("filled-cell")
+        if(cell.classList.contains("fixed-cell-color")) cell.classList.remove("fixed-cell-color")
+        if(cell.classList.contains("fixed-cell")) cell.classList.remove("fixed-cell")
+
+        let rowNum = getRowColNumber(cell.id).row
+        let colNum = getRowColNumber(cell.id).col
+        let currVal = originalUnsolvedSudoku[rowNum][colNum]
+        unsolvedSudoku[rowNum][colNum] = currVal
+        if(currVal != 0) {
+            cell.classList.add("fixed-cell")
+            cell.textContent = currVal
+        }
+        else {
+            cell.textContent = "";
+            cell.classList.add("empty-cell")
+        }
+
+    })
+    highlighitingCells(0,0)
 }
 
 // Utility Helper Functions:
