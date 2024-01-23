@@ -10,6 +10,8 @@
     <title>Play Free Sudoku onine - solve web sudoku puzzles</title>
 </head>
 <body>
+    <div id="loader" class=""></div>
+    <h1 class="unsupported-message">The screen size of this device is not compatible. Kindly switch to the desktop version using a larger screen.</h1>
     <h1 class="heading">Sudoku.com</h1>
     <div class="bar">
         <div class="difficulty-bar">
@@ -37,7 +39,7 @@
                     <div class="clear-cell sty" style="background-image: url('Media/Icon-Notes.png');"></div><p>Clear</p>
                 </div>
                 <div class="undo">
-                    <div class="backT-cell sty" style="background-image: url('Media/Icon-Undo.png');"></div><p>BackTra</p>
+                    <div class="reset-cell sty" style="background-image: url('Media/Icon-Undo.png');"></div><p>Reset</p>
                 </div>
                 <div class="solve">
                     <div class="solve-cell sty" style="background-image: url('Media/Icon-Hint.png');"></div><p>Solve</p>
@@ -57,6 +59,7 @@
             <div class="third-sub-grid">New Game</div>
         </div>
     </div>
+    
 
     <div class="game-mode">
         <p>Select Game Mode</p>
@@ -64,7 +67,6 @@
         <button id="Medium-mode" class="btn">Medium</button>
         <button id="Hard-mode" class="btn">Hard</button>
     </div>
-    <h1 class="unsupported-message">The screen size of this device is not compatible. Kindly switch to the desktop version using a larger screen.</h1>
     
     
 <script src="function.js"></script>
